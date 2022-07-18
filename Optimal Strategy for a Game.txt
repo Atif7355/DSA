@@ -1,0 +1,25 @@
+class Solution{
+    public:
+    long long int dp[1001][1001];
+        long long int max(long long int a,long long int b){
+       return a > b ? a : b;
+   }
+   
+   long long int helper(int arr[],int i,int j){
+       if(i == j){
+           return arr[i];
+       }
+       if(i > j) return (0);
+       
+       if(dp[i][j] != -1) return (dp[i][j]);
+       
+       long long int res1 = arr[j] + min(helper(arr,i,j-2),helper(arr,i+1,j-1));
+       long long int res2 = arr[i] + min(helper(arr,i+2,j),helper(arr,i+1,j-1));
+       return dp[i][j] = max(res1,res2);
+   }
+   
+   long long maximumAmount(int arr[], int n){
+       memset(dp,-1,sizeof(dp));
+       return helper(arr,0,n-1);
+   }
+};

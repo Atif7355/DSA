@@ -1,0 +1,17 @@
+class Solution{
+    public:
+    int maxSumPairWithDifferenceLessThanK(int arr[], int n, int k)
+    {
+        // Your code goes here  
+        sort(arr, arr + n, [](int& x, int & y) { return x > y; });
+        int _sum = 0, index = 1;
+        while (index < n) {
+            if (arr[index - 1] - arr[index] < k) {
+                _sum += arr[index - 1] + arr[index];
+                index++;
+            }
+            index++;
+        }
+        return _sum;
+    }
+};
