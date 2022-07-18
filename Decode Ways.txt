@@ -1,0 +1,26 @@
+class Solution {
+public:
+    int numDecodings(string s) {
+        if(s[0]=='0') return 0;
+
+        int curr=0, single=1, combine=1;
+
+        if(s[s.size()-1]=='0') single=0;
+
+        for(int i=s.size()-2; i>=0; --i){
+
+            curr = single;
+
+            if(s[i]=='0') curr=0;
+
+            else if(stoi(s.substr(i,2))<27) curr+=combine;
+
+            combine = single;
+
+            single = curr;
+
+        }
+
+        return single;
+    }
+};

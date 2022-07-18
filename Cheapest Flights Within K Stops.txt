@@ -1,0 +1,53 @@
+class Solution {
+public:
+    class Node {
+      public:
+        int hops;
+        int node;
+        int totalCost;
+        Node(int h,int u, int tc){
+          hops=h;
+          node=u;
+          totalCost=tc;
+        }
+    };
+    
+    int findCheapestPrice(int n, vector<vector<int>>& flights, int src, int dst, int k) {
+      const int INF = 0x3f3f3f3f;  
+      vector<int> dist (n, INF);
+      queue<Node> q;
+      Node start(0, src, 0);
+      q.push(start);
+      vector<vector<pair<int,int>>> adj(n);
+      
+      for(vector<int> flight:flights) {
+        adj[flight[0]].push_back(make_pair(flight[1],flight[2]));
+      }
+      
+      while(!q.empty()){
+        Node nd = q.front(); q.pop();
+        
+        if(nd.totalCost<dist[nd.node])
+          dist[nd.node]=nd.totalCost;
+        
+        if(nd.hops > k)
+          continue;
+        for(const pair<int,int> &pr : adj[nd.node])
+        {
+          int v = pr.first;
+          int cost = pr.second;
+          
+          int newCost = nd.totalCost + cost;
+          if(newCost < dist[v]){
+            Node newNode(nd.hops+1,v,newCost);
+            q.push(newNode);
+          }
+        }
+      }
+      
+      if(dist[dst]==INF)
+        return -1;
+      return dist[dst];
+      
+    }
+};

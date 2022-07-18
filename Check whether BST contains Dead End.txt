@@ -1,0 +1,12 @@
+bool find(Node* root, int min, int max){
+   if(root == NULL)
+       return false;
+   if(min == max)
+       return true;
+   return find(root->left, min, root->data-1) || find(root->right, root->data+1, max);
+}
+
+bool isDeadEnd(Node *root)
+{
+   return find(root, 1, INT_MAX);
+}

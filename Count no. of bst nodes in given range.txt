@@ -1,0 +1,14 @@
+void inorder(Node* root,int l,int h, int& c)
+{
+   if(root==NULL) return;
+   if(root->left) inorder(root->left,l,h,c);
+   if(root->data>=l && root->data<=h) c++;
+   if(root->right) inorder(root->right,l,h,c);
+}
+int getCount(Node *root, int l, int h)
+{
+ // your code goes here
+ int count=0;
+ inorder(root,l,h,count);
+ return count;
+}

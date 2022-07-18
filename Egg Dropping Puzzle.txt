@@ -1,0 +1,40 @@
+
+class Solution
+{
+    public:
+    //Function to find minimum number of attempts needed in 
+    //order to find the critical floor.
+    int dp[201][201];
+     int solve(int egg,int flr){
+       // starting floor base condition
+       
+       if(flr==1 || flr==0){
+           return flr;
+       }
+       // if only 1 egg we start from bottom floor until f where it breaks for the first time
+       if(egg==1){
+           return flr;
+       }
+       // memoization
+       if(dp[egg][flr]!= -1){
+           return dp[egg][flr];
+       }
+       int ans= INT_MAX;
+       for(int k=1;k<=flr;k++){
+           // check worst case thats why max
+           // if egg breaks then egg-1 and floor till kth floor
+           // if it doesn't break then egg and floor above k (floor-k) would be 1st floor for next recursion
+           
+           int temp= 1+max(solve(egg-1,k-1),solve(egg,flr-k));
+           // min of all the worst maxes
+           ans= min(ans,temp);
+       }
+       return dp[egg][flr]= ans;
+       
+   }
+   int eggDrop(int n, int k) 
+   {
+       memset(dp,-1,sizeof(dp));
+       return solve(n,k);
+   }
+};

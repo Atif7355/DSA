@@ -1,0 +1,38 @@
+class Solution {
+public:
+    int countSubstrings(string s) {
+        int len = s.length();
+
+        vector<vector<int>>dp(len, vector<int>(len));
+
+        int count = 0;
+
+        for(int i = s.size()-1; i>=0; i--){
+
+            for(int j = i; j< s.size(); j++){
+
+                if(i==j) dp[i][j] = 1; //the case where only single character is being evaluated
+
+                else if(i+1 == j){ // adjacent characters of the substring
+
+                    dp[i][j] = s[i]==s[j] ? 1 : 0;
+
+                }
+
+                else { //when length of the substr >2
+
+					dp[i][j] = s[i]==s[j] ? dp[i+1][j-1] : 0;
+
+				}
+
+                
+
+                count += dp[i][j];
+
+            }
+
+        }
+
+        return count;
+    }
+};

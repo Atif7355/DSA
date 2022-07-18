@@ -1,0 +1,72 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+
+ // } Driver Code Ends
+//User function Template for C
+
+
+// arr[]: Input Array
+// N : Size of the Array arr[]
+// Function to count inversions in the array.
+long long int _mergeSort(long long arr[], long long temp[], long long left, long long right);
+
+long long int merge(long long arr[], long long temp[], long long left, long long mid,
+
+          long long right);
+ 
+/* This function sorts the
+
+   input array and returns the
+number of inversions in the array */
+
+long long int mergeSort(long long arr[], long long array_size)
+{
+
+    long long temp[array_size];
+
+
+    return _mergeSort(arr, temp, 0, array_size - 1);
+}
+ 
+/* An auxiliary recursive function
+
+  that sorts the input array and
+returns the number of inversions in the array. */
+
+long long int _mergeSort(long long arr[], long long temp[], long long left, long long right)
+{
+
+    long long mid;
+    long long int inv_count = 0;
+
+    if (right > left) {
+
+        /* Divide the array into two parts and
+
+        call _mergeSortAndCountInv()
+
+        for each of the parts */
+
+        mid = (right + left) / 2;
+ 
+
+        /* Inversion count will be sum of
+
+        inversions in left-part, right-part
+
+        and number of inversions in merging */
+
+        inv_count += _mergeSort(arr, temp, left, mid);
+
+        inv_count += _mergeSort(arr, temp, mid + 1, right);
+ 
+
+        /*Merge the two parts*/
+
+        inv_count += merge(arr, temp, left, mid + 1, right);
+
+    }
+
+    return inv_count;
+}
