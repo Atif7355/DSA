@@ -1,0 +1,19 @@
+class Solution
+{
+public:
+    vector<int> singleNumber(vector<int> nums) 
+    {
+        // Code here.
+        vector<int> v;
+        int n=nums.size();
+        map<int,int> k;
+        for(int i=0;i<n;i++){
+            k[nums[i]]++;
+        }
+        for(auto it:k){
+            if(it.second==1)
+            v.push_back(it.first);
+        }
+        return v;
+    }
+};

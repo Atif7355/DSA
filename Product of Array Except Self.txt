@@ -1,0 +1,22 @@
+class Solution {
+public:
+    vector<int> productExceptSelf(vector<int>& nums) {
+         vector<int> ans = vector(nums.size(), 1); //final answer where ans[i]=fwd[i] * bck[i]
+        vector<int> fwd = vector(nums.size(), 1); //array to hold at index[i] the product of all numbers BEFORE index[i] except index[i] itself
+        vector<int> bck = vector(nums.size(), 1);//array to hold at index[i] the product of all numbers AFTER index[i] except index[i]
+        
+		// construct the fwd array
+        for(int i=1; i<nums.size(); i++) {
+            fwd[i]=fwd[i-1]*nums[i-1];
+        }
+		//construct the bck array
+        for(int i=nums.size()-2; i>=0; i--) {
+            bck[i]=bck[i+1]*nums[i+1];
+        }
+		//construct the ans
+        for(int i=0; i< nums.size(); i++) {
+            ans[i]=fwd[i]*bck[i];
+        }
+        return ans;
+    }
+};

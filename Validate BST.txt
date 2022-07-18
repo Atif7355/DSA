@@ -1,0 +1,41 @@
+class Solution {
+
+public:
+
+    void inorder(TreeNode* root,TreeNode* &prev,int &f)
+
+    {
+
+        if(!root)
+
+            return;
+
+        inorder(root->left,prev,f);
+
+        if(prev and root->val<=prev->val)
+
+        {
+
+            f=0;
+
+            return;
+
+        }
+
+        prev=root;
+
+        inorder(root->right,prev,f);
+
+    }
+
+    bool isValidBST(TreeNode* root) {
+
+        int f=1;
+
+        TreeNode* prev=NULL;
+
+        inorder(root,prev,f);
+
+        return f;
+    }
+};

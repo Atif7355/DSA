@@ -1,0 +1,60 @@
+class Solution {
+public:
+    void reorderList(ListNode* head) {
+        if(head==NULL || head->next==NULL || head->next->next==NULL)
+            return;
+        
+        ListNode* ptr1=head, *ptr2=head->next;
+        
+        // finds mid node 
+        // ptr1 will be the mid node
+        while(ptr2!=NULL && ptr2->next!=NULL && ptr1!=NULL){
+            ptr1=ptr1->next;
+            ptr2=ptr2->next->next;
+        }
+        
+        //set (mid+1)th node as head node of 2nd list 
+        ptr2=ptr1->next;
+        
+        //set mid element's next as NULL to break the link with 2nd list
+        ptr1->next=NULL;
+        
+        
+        // reversing last half nodes
+        ListNode* pre=NULL, *cur=ptr2, *nxt;
+        while(cur!=NULL){
+            nxt=cur->next;
+            cur->next=pre;
+            pre=cur;
+            cur=nxt;
+        }
+        
+        // head of the reversed 2nd list
+        ptr2=pre;
+        
+        //head of the 1st list
+        ptr1=head;
+        
+        
+        //merge two lists
+        while(ptr2!=NULL && ptr1!=NULL){
+            //next node of 1st list
+            pre=ptr1->next;
+            
+            //current node of 2nd list
+            cur=ptr2;
+            
+            ptr2=ptr2->next;
+            
+            // node insertion
+            ptr1->next=cur;
+            ptr1->next->next=pre;
+            
+            ptr1=pre;
+            
+        }
+        
+        return;
+        
+    }
+};

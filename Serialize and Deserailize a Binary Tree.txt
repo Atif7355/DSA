@@ -1,0 +1,88 @@
+class Codec {
+public:
+
+    // Encodes a tree to a single string.
+    string serialize(TreeNode* root) {
+
+        string s="";
+
+        preorder(root,s);
+
+        return s;
+
+    }
+
+    void preorder(TreeNode* root,string& s)
+
+    {
+
+        if(root==NULL)
+
+        {
+
+            s+=to_string(1005);
+
+            s+=' ';
+
+            return;
+
+        }
+
+        s+=to_string(root->val);
+
+        s+=' ';
+
+        preorder(root->left,s);
+
+        preorder(root->right,s);
+
+    }
+
+    
+
+    int ind=0;
+
+    TreeNode* deserialize(string s) {
+
+        return fun(s);
+
+    }
+
+    TreeNode* fun(string& s){
+
+        if(ind==s.length())
+
+            return NULL;
+
+        string t="";
+
+        
+
+        while(ind<s.length() && s[ind]!=' ')
+
+        {
+
+            t+=s[ind++];
+
+        }
+
+        ind++;
+
+        int val=stoi(t);
+
+        if(val==1005)
+
+            return NULL;
+
+        TreeNode* root= new TreeNode(val);
+
+        root->left=fun(s);
+
+        root->right=fun(s);
+
+        return root;
+
+    }
+
+};
+

@@ -1,0 +1,37 @@
+string getSerializedBinaryTree(Node* root ,unordered_map<string , bool> &subTreeExpressions, vector<Node*>& res){
+   if(root == NULL){
+       return "X ";
+   }
+   
+   string leftSubTreeExp = getSerializedBinaryTree(root->left, subTreeExpressions, res);
+   string rightSubTreeExp = getSerializedBinaryTree(root->right, subTreeExpressions, res);
+   
+   string currExp = to_string(root->data) + " " +  leftSubTreeExp + rightSubTreeExp;
+   if(subTreeExpressions.find(currExp) != subTreeExpressions.end()){
+       if(!subTreeExpressions[currExp]){
+           res.push_back(root);
+           subTreeExpressions[currExp] = true;
+       }
+   }else{
+       subTreeExpressions[currExp] = false;
+   }
+   
+   
+   return currExp;
+}
+
+vector<Node*> printAllDups(Node* root)
+{
+   vector<Node*> res;
+   if(root == NULL){
+       return res;
+   }
+   
+   unordered_map<string , bool> subTreeExpressions;
+   
+   string serializedBinaryTree = getSerializedBinaryTree(root ,subTreeExpressions, res);
+   
+   return res;
+   
+   
+}
