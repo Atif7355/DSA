@@ -1,0 +1,20 @@
+int maxChainLen(struct val arr[],int n)
+{
+//Your code here
+sort(arr, arr+n ,[](val &a, val &b){
+        return a.first<b.first;
+    });                        
+    vector<int> dp;
+    dp.push_back(arr[0].second);
+    
+    for(int i=1;i<n;i++)
+    {
+        if(arr[i].first>dp.back())
+            dp.push_back(arr[i].second);
+        else{
+            int index= lower_bound(dp.begin(), dp.end(), arr[i].second)-dp.begin();
+            dp[index]= arr[i].second;
+        }
+    }
+    return dp.size();
+}

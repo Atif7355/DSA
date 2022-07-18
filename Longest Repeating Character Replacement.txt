@@ -1,0 +1,50 @@
+class Solution {
+public:
+    int characterReplacement(string s, int k) {
+        int n=s.length();
+
+        int i=0;    //window start
+
+        int j=0;    //window end
+
+        int maxCnt=0;    //max no of repeating elements 
+
+        int ans=0;
+
+        unordered_map<char,int> ump;
+
+        while(j<n)
+
+        {
+
+            ump[s[j]]++;
+
+            maxCnt=max(maxCnt,ump[s[j]]);
+
+            
+
+            int curr_len=j-i+1;//Curr Len of the window
+
+            if(curr_len-maxCnt>k) //the curr window has more than k replacable items case
+
+            {
+
+                ump[s[i]]--;     // shrinking the window
+
+                i++;     
+
+            }
+
+            curr_len=j-i+1;    // just in case i is changed
+
+            ans=max(ans,curr_len);
+
+            j++;
+
+        }
+
+        
+
+        return ans;
+    }
+};

@@ -1,0 +1,30 @@
+class Solution
+{
+    public:
+    vector<int> vec;
+    
+    void rev_inorder(Node* root)
+    {
+        if(!root)
+        {
+            return ;
+        }
+        
+        rev_inorder(root->right);
+        vec.push_back(root->data);
+        rev_inorder(root->left);
+    }
+    int kthLargest(Node *root, int K)
+    {
+        rev_inorder(root);
+        
+        K--;
+        for(int i=0;i<vec.size();i++)
+        {
+            if(K==i)
+            {
+                return vec[i];
+            }
+        }
+    }
+};

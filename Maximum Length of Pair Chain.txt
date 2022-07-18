@@ -1,0 +1,29 @@
+class Solution {
+public:
+    int dp[1002][2002];
+int sol(vector<pair<int,int>>&v,int i,int prev){
+int n=v.size();
+if(i>=n)return 0;
+if(dp[i][prev+1001]!=-1)return dp[i][prev+1001];
+int temp=0;
+temp=sol(v,i+1,prev);
+if(prev<v[i].first){
+temp=max(temp,1+sol(v,i+1,v[i].second));
+}
+
+return dp[i][prev+1001]= temp;
+}
+
+public:
+int findLongestChain(vector<vector<int>>& A) {
+vector<pair<int,int>>v;
+memset(dp,-1,sizeof dp);
+for(int i=0;i<A.size();i++){
+
+    v.push_back(make_pair(A[i][0],A[i][1]));
+}
+sort(v.begin(),v.end());
+int ans=sol(v,0,-1001);
+return ans;
+}
+};

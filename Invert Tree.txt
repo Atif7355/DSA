@@ -1,0 +1,24 @@
+class Solution {
+public:
+    TreeNode* invertTree(TreeNode* root) {
+
+        if(root==NULL) return NULL;
+
+        //swapping the left n the right child
+
+        swap(root->left,root->right);
+
+        //recursive call for left n right child
+
+        invertTree(root->left);
+
+        invertTree(root->right);
+
+        
+
+        return root;
+   
+        
+        
+    }
+};

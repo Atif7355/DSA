@@ -1,0 +1,16 @@
+class Solution{
+public:	
+	int maxSubstring(string str)
+	{
+	    // Your code goes here
+	    int one = 0, zero = 0, result = -1;
+	    for (char& ch : str) {
+	        one += (ch == '1');
+	        zero += (ch == '0');
+	        result = max(result, zero - one);
+	        if (zero - one < 0)
+	            one = zero = 0;
+	    }
+	    return result;
+	}
+};

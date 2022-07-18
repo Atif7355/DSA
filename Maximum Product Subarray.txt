@@ -1,0 +1,49 @@
+class Solution {
+public:
+    int maxProduct(vector<int>& nums) {
+    
+     int maxarr[nums.size()] , minarr[nums.size()];
+
+        
+
+        // maxarr[i] tells maximum product till i , including i 
+
+        // minarr[i] tells minimum product till i , including i 
+
+        maxarr[0] = nums[0];
+
+        minarr[0] = nums[0];
+
+        
+
+        // minarr is to handle the negatives
+
+        for( int i = 1 ; i < nums.size() ; i++ ){
+
+            maxarr[i] = max( max( maxarr[i-1]*nums[i] , minarr[i-1]*nums[i]) , nums[i] );
+
+            minarr[i] = min( min( maxarr[i-1]*nums[i] , minarr[i-1]*nums[i]) , nums[i] );
+
+       
+
+        }
+
+         
+
+        int max = INT_MIN;
+
+        for( int i = 0 ; i < nums.size() ; i++ ){
+
+            if( maxarr[i] > max ){
+
+                max = maxarr[i];
+
+            }
+
+        }
+
+        
+
+        return max;                
+    }
+};
